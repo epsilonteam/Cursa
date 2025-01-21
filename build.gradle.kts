@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 group = "net.spartanb312"
 version = "1.0-SNAPSHOT"
 
@@ -7,11 +9,11 @@ plugins {
     id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
-val loader_version: String by rootProject
-val fkotlin_version: String by rootProject
-val yarn_mappings: String by rootProject
-val minecraft_version: String by rootProject
-val fabric_version: String by rootProject
+val loaderVersion: String get() = property("loader_version").toString()
+val fKotlinVersion: String get() = property("fkotlin_version").toString()
+val yarnMappings: String get() = property("yarn_mappings").toString()
+val mcVersion: String get() = property("minecraft_version").toString()
+val fabricVersion: String get() = property("fabric_version").toString()
 
 val kmogusVersion = "1.0-SNAPSHOT"
 
@@ -27,13 +29,13 @@ val library: Configuration by configurations.creating {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraft_version")
-    mappings("net.fabricmc:yarn:$yarn_mappings:v2")
+    minecraft("com.mojang:minecraft:$mcVersion")
+    mappings("net.fabricmc:yarn:$yarnMappings:v2")
 
-    modImplementation("net.fabricmc:fabric-loader:$loader_version")
+    modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
     //modImplementation("net.fabricmc:fabric-language-kotlin:$fkotlin_version")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
-    modImplementation("net.fabricmc.fabric-api:fabric-renderer-indigo:$fabric_version")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
+    modImplementation("net.fabricmc.fabric-api:fabric-renderer-indigo:$fabricVersion")
 
     library(kotlin("stdlib"))
     library("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
@@ -56,19 +58,20 @@ tasks {
     }
 
     compileKotlin {
-        kotlinOptions {
-            freeCompilerArgs = listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=kotlin.contracts.ExperimentalContracts",
-                "-Xlambdas=indy",
-                "-Xjvm-default=all",
-                "-Xbackend-threads=0",
-                "-Xno-source-debug-extension"
-            )
-        }
         compilerOptions {
-            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1)
-            apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1)
+            freeCompilerArgs.addAll(
+                listOf(
+                    "-opt-in=kotlin.RequiresOptIn",
+                    "-opt-in=kotlin.contracts.ExperimentalContracts",
+                    "-Xlambdas=indy",
+                    "-Xjvm-default=all",
+                    "-Xbackend-threads=0",
+                    "-Xno-source-debug-extension"
+                )
+            )
+
+            languageVersion.set(KotlinVersion.KOTLIN_2_1)
+            apiVersion.set(KotlinVersion.KOTLIN_2_1)
         }
     }
 
