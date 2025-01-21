@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "run.epsilon.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixinPriority": 100,
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [],
+  "client": []
+}

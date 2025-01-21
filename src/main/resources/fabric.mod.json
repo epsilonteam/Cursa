@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "cursa",
+  "version": "1.0",
+  "name": "Cursa",
+  "entrypoints": {
+    "main": [
+      "net.spartanb312.cursa.Epsilon"
+    ]
+  },
+  "description": "null",
+  "authors": [],
+  "license": "NMSL License",
+  "environment": "client",
+  "mixins": [
+    "cursa.mixins.json"
+  ],
+  "accessWidener": "cursa.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "1.21.4"
+  }
+}
